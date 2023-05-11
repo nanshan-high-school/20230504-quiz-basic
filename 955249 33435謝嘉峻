@@ -1,0 +1,47 @@
+#include <iostream>
+#include <iostream>
+#include <vector>
+#include <stack>
+using namespace std;
+
+int main() {
+    int n;
+    while (cin >> n) {
+        if (n == 0) {
+            break;
+        }
+        
+        vector<int> last(n);
+        for (int i = 0; i < n; i++) {
+            cin >> last[i];
+        }
+    
+        stack<int> station;
+        int next = 0;
+        bool can = true;
+        int train = 1;
+        for (int i = 0; i < (n + 1); i++) {
+            while (!station.empty() && station.top() == last[next]) {
+                station.pop();
+                next++;
+            }
+            if (train == last[next]) {
+                next++;
+                train++;
+            } else if (train <= n) {
+                station.push(train);
+                train++;
+            }
+        }
+    
+        if (!station.empty()) {
+            can = false;
+        }
+    
+        if (can == true) {
+            cout << "Yes" << "\n";
+        } else {
+            cout << "No" << "\n";
+        }
+    }
+}
